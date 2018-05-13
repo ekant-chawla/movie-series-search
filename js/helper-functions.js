@@ -40,7 +40,7 @@ let isInputValid = ()=>{
 
 let generateUrl = (input)=>{
 
-	const baseUrl = "http://www.omdbapi.com";
+	const baseUrl = "https://www.omdbapi.com";
 	const apikey = "9016ffe2";
 	let url = `${baseUrl}/?r=json&apikey=${apikey}`;
 
