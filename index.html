@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale =1.0,user-scalable=no">
+	<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<title>Entertainment Search</title>
+</head>
+<body>
+
+	
+	<button type="button" class="btn help-button" data-toggle="modal" data-target="#exampleModal">
+	 	<i class="far fa-question-circle"></i>
+	</button>
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">User Guide</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <ol>
+	        	<li>Select search by title or imdbID.</li>
+	        	<li>Enter data and click Submit.</li>
+	        	<li>Note : Only the title or imdbID are mandatory.</li>
+	        	<li>Built using http://www.omdbapi.com API.</li>
+	        </ol>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn modal-got-it-btn" data-dismiss="modal">Got it. Thanks.</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+	<div class="form-container">
+		<div class="container">
+			<form class="row">
+				<div class="col-12">
+					<h2>Search By</h2>
+					<div class="row">						
+						<div class="col-5 col-md-3 custom-control custom-radio">
+							<input autocomplete="off" name="search-by" class="col-1 custom-control-input" id="title-search-radio" type="radio" value="title">
+							<label class="col-9 custom-control-label" for='title-search-radio'>&nbsp;Title</label>
+						</div>
+
+						<div class="col-7 col-md-3 custom-control custom-radio">
+							<input autocomplete="off" name="search-by" class="col-1 custom-control-input" id="id-search-radio" type="radio" value="id">
+							<label class="col-9 custom-control-label" for='id-search-radio'>&nbsp;IMDB Id</label>
+						</div>
+
+					</div>			
+					
+					<div class="row mt-4">
+						<div class="col-12 col-md-6 form-group">
+							<label class="col-12">Titile*</label>
+							<input autocomplete="off" id="title" class="col-12 form-control" id="title-search" type="text">
+						</div>
+
+						<div class="col-12 col-md-6 form-group">
+							<label class="col-12">IMDB Id*</label>
+							<input autocomplete="off" disabled id="id" class="col-12 form-control" id="id-search" type="text">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12">
+					<span class="filter-title">Filters</span>
+					<div class="row filter-container">	
+						
+
+						<div class="col-12 col-md-4 form-group">
+							<label class="col-12">Year</label>
+							<input autocomplete="off" class="col-12 form-control" id="year-filter" type="text" maxlength="4" minlength="4">
+						</div>
+
+						<div class="col-12 col-md-4 form-group">
+							<label class="col-12">Category</label>
+							<select autocomplete="off" class="col-12 form-control" id="type-filter">
+								<option value="">All</option>
+								<option value="movie">Movie</option>
+								<option value="series">Series</option>
+								<option value="episode">Episode</option>
+							</select>
+						</div>
+
+						<div class="col-12 col-md-4 plot form-group">
+							<label class="col-12">Plot Length</label>
+							<select autocomplete="off" class="col-12 form-control" id="plot-filter">
+								<option value="">All</option>
+								<option value="short">Short</option>
+								<option value="full">Full</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 text-center">
+					<input class="btn submit-btn" type="submit" value="SUBMIT">					
+				</div>
+
+			</form>		
+		</div>
+	</div>
+	<div class="display-area">
+
+		<div class="loader-container text-center">
+			<h2 id="loader-title">Hold on, we are doing what you requested...</h2>
+			<div class="loader"></div> 			
+		</div>
+
+		<div id="error-icon-container" class="text-center">
+			<i class="far fa-times-circle error-icon"></i>
+		</div>
+
+		<div class="message-container text-center">
+			<p id="message"></p>		
+		</div>
+
+
+		<div class="container" id="result-area">
+				<h2>Search Result</h2>
+
+				<div class="cards-container row">
+					
+					<p class="help-text col-12">
+						Click on a card below to see more details.
+					</p>
+
+					<div class="col-12 col-md-6 col-lg-4">
+						<div class="card custom-card">
+						  <img class="card-img-top" src="img/poster-placeholder.png" alt="Card image cap">
+						  <div class="card-body">
+						    <h5 class="card-title text-truncate">Pirates of the Caribbean: Dead Man's Chest</h5>
+						    <p class="card-text">Year: 2015</p>
+						  </div>
+						</div>
+					</div>
+					
+
+					<div class="col-12 col-md-6 col-lg-4">
+						<div class="card custom-card">
+						  <img class="card-img-top" src="img/poster-placeholder.png" alt="Card image cap">
+						  <div class="card-body">
+						    <h5 class="card-title ">Name</h5>
+						    <p class="card-text">Year: 2015</p>
+						  </div>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-6 col-lg-4">
+						<div class="card custom-card">
+						  <img class="card-img-top" src="img/poster-placeholder.png" alt="Card image cap">
+						  <div class="card-body">
+						    <h5 class="card-title">Name</h5>
+						    <p class="card-text">Year: 2015</p>
+						  </div>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-6 col-lg-4">
+						<div class="card custom-card">
+						  <img class="card-img-top" src="img/poster-placeholder.png" alt="Card image cap">
+						  <div class="card-body">
+						    <h5 class="card-title">Name</h5>
+						    <p class="card-text">Year: 2015</p>
+						  </div>
+						</div>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4">
+						<div class="card custom-card">
+						  <img class="card-img-top" src="img/poster-placeholder.png" alt="Card image cap">
+						  <div class="card-body">
+						    <h5 class="card-title">Name</h5>
+						    <p class="card-text">Year: 2015</p>
+						  </div>
+						</div>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4">
+						<div class="card custom-card">
+						  <img class="card-img-top" src="img/poster-placeholder.png" alt="Card image cap">
+						  <div class="card-body">
+						    <h5 class="card-title">Name</h5>
+						    <p class="card-text">Year: 2015</p>
+						  </div>
+						</div>
+					</div>
+
+					<div class="col-12 text-right">
+						<a class="more-btn" href="" target="_blank">
+							More..
+						</a>
+					</div>
+
+				</div>	
+
+				<div class="row detail-result-container">
+
+					<div class="col-12 col-md-5 img-area">
+						<img src="img/poster-placeholder.png">
+					</div>
+
+					<div class="col-12 col-md-7 info-area">
+						<div class="row no-gutters">
+							<div class="col-12">
+								<div class="row">									
+
+									<div class="col-12">
+										<span class="title">Pirates of the Caribbean: Dead Man's Chest (2011) (English)</span>	
+									</div>
+
+									<div class="col-12">
+										<i class="fas fa-star star-icon"></i>
+										<span class="rating">8.9</span>
+										<span class="rating-base">/10</span>
+										<span class="total-votes">(219,195)</span>		
+									</div>
+
+									<div class="col-12 text-right">
+										<span class="duration">153 min</span>
+									</div>
+								</div>
+													
+							</div>
+											
+
+							<div class="col-12 col-md-6">
+								<p class="feature" id="rated"> <span class="feature-title">Rated</span> : PG - 13</p>
+							</div>
+
+							<div class="col-12 col-md-6">
+								<p class="feature" id="release"><span class="feature-title">Release</span> : 07 Jul 2017 (USA)</p>
+								
+							</div>
+
+							<div class="col-12">
+								<p class="feature" id="genre"><span class="feature-title">Genre</span> : Action</p>
+							</div>
+
+							<div class="col-12">
+								<p class="feature" id="production"><span class="feature-title">Production</span> : Walt Disney Pictures</p>
+							</div>
+
+
+							<div class="col-12">
+								<p class="feature" id="director"><span class="feature-title">Director(s)</span> : Anthony Russo, Joe Russo</p>
+							</div>
+
+							<div class="col-12">
+								<p class="feature" id="writer"><span class="feature-title">Writer(s)</span> : Christopher Markus (screenplay by), Stephen McFeely (screenplay by), Stan Lee (based on the Marvel comics by), Jack Kirby (based on the comics by), Joe Simon (Captain America created by), Jack Kirby (Captain America created by), Steve Englehart (Star-Lord created by), Steve Gan (Star-Lord created by), Bill Mantlo (Rocket Raccoon created by), Keith Giffen (Rocket Raccoon created by), Jim Starlin (Thanos,  Gamora and Drax created by), Stan Lee (Groot created by), Larry Lieber (Groot created by), Jack Kirby (Groot created by), Steve Englehart (Mantis created by), Don Heck (Mantis created by)
+								</p>
+							</div>
+
+							<div class="col-12">
+								<p class="feature" id="actors"><span class="feature-title">Staring</span> : Robert Downey Jr., Chris Hemsworth, Mark Ruffalo, Chris Evans
+								</p>
+							</div>
+
+							<div class="col-12">
+								<p class="feature" id="plot"><span class="feature-title">Plot</span> : The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.
+								</p>
+							</div>
+
+							<div class="col-12">
+								<p class="feature" id="awards"><span class="feature-title">Awards</span> : Nominated for 1 Golden Globe. Another 67 wins & 190 nominations.
+								</p>
+							</div>
+
+							<div class="col-12 col-md-8">
+								<p class="feature" id="box-office"><span class="feature-title">Box Office</span> : $200,000
+								</p>
+							</div>
+
+							<div class="col-12 col-md-8">
+								<p class="feature" id="seasons"><span class="feature-title">Seasons</span> : $200,000
+								</p>
+							</div>
+
+							<div class="col-12 col-md-4">
+								<a class="website-link" href="" target="_blank">
+									<i class="fas fa-globe globe-icon"></i>
+									Visit website
+								</a>
+							</div>
+						</div>
+					</div>					
+				</div>
+		</div>
+	</div>
+
+
+
+
+
+
+	<!--framework js-->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
+	</script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+	<!--custom js-->
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/helper-functions.js"></script>
+	<script type="text/javascript" src="js/ajax-calls.js"></script>
+	<script type="text/javascript" src="js/action-setup.js"></script>
+	
+
+</body>
+</html>
