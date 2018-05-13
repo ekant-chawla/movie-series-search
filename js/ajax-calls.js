@@ -9,7 +9,7 @@ let requestApi = (input)=>{
 		beforeSend: beforeSend,
 		complete: complete,
 		error:error,
-		timeout:3000
+		timeout:5000
 	};
 
 
@@ -29,7 +29,7 @@ let requestMore = ()=>{
 		success:successMore,
 		beforeSend:beforeMore,
 		complete:completeMore,
-		timeout:3000
+		timeout:5000
 	}
 
 	$.ajax(setting);
